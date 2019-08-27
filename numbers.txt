@@ -1,0 +1,25 @@
+isdk->stack_pos = 0;
+isdk->ba_dif = 999999999;
+isdk->bb_dif = 999999999;
+isdk->ss = 0;
+isdk->rr = 0;
+isdk->rrr = 0;
+isdk->move_find_a = isdk->ahead;
+isdk->move_find_b = isdk->bhead;
+isdk->a_dif = isdk->stack_pos;
+isdk->b_dif = 2;
+isdk->ra_flag = 0;
+isdk->rb_flag = 0;
+
+
+1[]
+0[]
+3[]
+6[]     8[]
+2[]     4[]
+____________
+a[5]    b[2]
+------------
+
+pa
+pa
