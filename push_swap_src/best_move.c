@@ -8,6 +8,9 @@ void    push_all_b(t_idk *isdk)
 
 void    best_move(t_idk *isdk)
 {
+    isdk->ss = 0;
+    isdk->rr = 0;
+    isdk->rrr = 0;
     pa(isdk);
     pa(isdk);
     isdk->bctr = 2;
@@ -47,7 +50,6 @@ void    best_move(t_idk *isdk)
                 i++;
             }
             isdk->tempb = isdk->bhead;
-            // fprintf(stderr, "stack a num: %d at pos: %d\n1st num stack b: %d, 2nd num stack b: %d\n", isdk->tempa->stk, current_num_pos, isdk->tempb->stk, isdk->tempb->next->stk);
             while (isdk->tempb != NULL)
             {
                 if (isdk->tempa->stk > b_highest && b_highest == isdk->tempb->stk)
@@ -59,7 +61,6 @@ void    best_move(t_idk *isdk)
                     break;
                 isdk->tempb = isdk->tempb->next;
             }
-            // fprintf(stderr, "r_b = %d, rr_b = %d\n", r_b, rr_b);
             int r_a = current_num_pos - 1;
             int rr_a = isdk->actr - current_num_pos + 1;
             num_of_moves_ra_rb = r_a + r_b - ((r_a >= r_b) ? r_b : r_a);
@@ -99,7 +100,6 @@ void    best_move(t_idk *isdk)
                 grr_b = rr_b;
             }
             current_num_pos++;
-            // fprintf(stderr, "best_num_of_moves: %d\ngr_a: %d\ngrr_a: %d\ngr_b: %d\ngrr_b: %d\n\n", best_num_of_moves, gr_a, grr_a, gr_b, grr_b);
         }
         while (gr_b)
         {

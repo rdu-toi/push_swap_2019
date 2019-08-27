@@ -9,7 +9,8 @@ void	sa(t_idk *isdk)
 		temp = isdk->ahead->stk;
 		isdk->ahead->stk = isdk->ahead->next->stk;
 		isdk->ahead->next->stk = temp;
-        write(1, "sa\n", 3);
+		if (!isdk->ss)
+        	write(1, "sa\n", 3);
 	}
 }
 
@@ -22,7 +23,8 @@ void	sb(t_idk *isdk)
 		temp = isdk->bhead->stk;
 		isdk->bhead->stk = isdk->bhead->next->stk;
 		isdk->bhead->next->stk = temp;
-        write(1, "sb\n", 3);
+		if (!isdk->ss)
+        	write(1, "sb\n", 3);
 	}
 }
 
@@ -32,6 +34,7 @@ void	ss(t_idk *isdk)
 	sa(isdk);
 	sb(isdk);
 	write(1, "ss\n", 3);
+	isdk->ss = 0;
 }
 
 void	pa(t_idk *isdk)
