@@ -47,18 +47,15 @@ void    best_move(t_idk *isdk)
                 i++;
             }
             isdk->tempb = isdk->bhead;
-            t_stack *last_b = isdk->tempb;
-            while (last_b->next != NULL)
-                last_b = last_b->next;
-            printf("1st num stack b: %d, 2nd num stack b: %d\n", isdk->tempb->stk, isdk->tempb->next->stk);
+            fprintf(stderr, "stack a num: %d at pos: %d\n1st num stack b: %d, 2nd num stack b: %d\n", isdk->tempa->stk, current_num_pos, isdk->tempb->stk, isdk->tempb->next->stk);
             while (isdk->tempb != NULL)
             {
-                if (last_b && isdk->tempa->stk > isdk->tempb->stk && last_b->stk > isdk->tempa->stk)
+                if (isdk->tempa->stk > b_highest && b_highest == isdk->tempb->stk)
                     break;
-                last_b = NULL;
                 r_b++;
                 rr_b--;
-                if ((isdk->tempa->stk < isdk->tempb->stk) && isdk->tempb->next && (isdk->tempa->stk > isdk->tempb->next->stk))
+                if ((isdk->tempa->stk < isdk->tempb->stk && isdk->tempb->next && isdk->tempa->stk > isdk->tempb->next->stk) ||
+                    (isdk->tempa->stk < b_lowest && b_lowest == isdk->tempb->stk))
                     break;
                 isdk->tempb = isdk->tempb->next;
             }
@@ -136,5 +133,9 @@ void    best_move(t_idk *isdk)
             grr_a--;
         }
         pa(isdk);
+        if (isdk->bhead->stk > b_highest)
+            b_highest = isdk->bhead->stk;
+        else if (isdk->bhead->stk < b_lowest)
+            b_lowest = isdk->bhead->stk;
     }
 }

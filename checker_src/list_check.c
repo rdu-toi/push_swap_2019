@@ -1,7 +1,7 @@
 #include "checker.h"
 #include <stdio.h>
 
-void	space(t_idk *isdk, int flag)
+void	space(t_idk *isdk, int flag, int end)
 {
 	int		spaces;
 
@@ -11,9 +11,11 @@ void	space(t_idk *isdk, int flag)
 		if (isdk->col_print)
 			printf(COLOR_GREEN "=" COLOR_RESET);
 		else
-			printf("=");
+			printf("="); 
 		spaces++;
-	} 
+	}
+	if(end)
+		printf("\n");
 	while (spaces + ft_nbrlen(isdk->actr) <= 15 && !flag)
 	{
 			printf(" ");
@@ -23,21 +25,21 @@ void	space(t_idk *isdk, int flag)
 
 void	end(t_idk *isdk)
 {
-	space(isdk, 1);
-	space(isdk, 0);
-	space(isdk, 1);
+	space(isdk, 1, 0);
+	space(isdk, 0, 0);
+	space(isdk, 1, 0);
 	if (isdk->col_print)
 		printf("\n" COLOR_RED "%d" COLOR_RESET, isdk->actr);
 	else
 		printf("\n%d", isdk->actr);
-	space(isdk, 0);
+	space(isdk, 0, 0);
 	if (isdk->col_print)
 		printf(COLOR_BLUE "%d" COLOR_RESET "\n", isdk->bctr);
 	else
 		printf("%d\n", isdk->bctr);
-	space(isdk, 1);
-	space(isdk, 0);
-	space(isdk, 1);
+	space(isdk, 1, 0);
+	space(isdk, 0, 0);
+	space(isdk, 1, 1);
 	printf("\n");
 }
 
