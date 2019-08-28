@@ -139,4 +139,30 @@ void    best_move(t_idk *isdk)
         else if (isdk->bhead->stk < b_lowest)
             b_lowest = isdk->bhead->stk;
     }
+    isdk->tempb = isdk->bhead;
+    int i = 0;
+    while (isdk->tempb != NULL)
+    {
+        if (isdk->tempb->stk == b_highest)
+            break;
+        i++;
+        isdk->tempb = isdk->tempb->next;
+    }
+    if (i + i > isdk->bctr)
+    {
+        i = isdk->bctr - i;
+        while (i > 0)
+        {
+            rrb(isdk);
+            i--;
+        }
+    }
+    else
+    {
+        while (i > 0)
+        {
+            rb(isdk);
+            i--;
+        }
+    }
 }
