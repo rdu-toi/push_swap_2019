@@ -1,1 +1,1 @@
-ARG=`ruby -e "puts (0..3).to_a.shuffle.join(' ')"`; ./name_of_program $ARG
+ARG=`ruby -e "puts (-100..-1).to_a.shuffle.join(' ')"`

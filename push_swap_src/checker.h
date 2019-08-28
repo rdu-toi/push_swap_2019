@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdu-toi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rdu-toi <rdu-toi@student.wethinkcode.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 13:36:31 by rdu-toi           #+#    #+#             */
-/*   Updated: 2018/09/04 13:36:31 by rdu-toi          ###   ########.fr       */
+/*   Updated: 2019/08/28 14:59:02 by rdu-toi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,24 @@ typedef struct		s_idk
 	t_stack			*bhead;
 	t_stack			*move_find_a;
 	t_stack			*move_find_b;
+
+    int b_highest;
+    int b_lowest;
+	int current_num_pos = 1;
+	int gr_a;       // greatest ra
+	int grr_a;      // greatest rra
+	int gr_b;      // next greatest rb
+	int grr_b;     // next greatest rrb
+	int best_num_of_moves;
+	int num_of_moves_ra_rb;
+	int num_of_moves_rra_rb;
+	int num_of_moves_ra_rrb;
+	int num_of_moves_rra_rrb;
+	int r_b;
+	int rr_b;
+	int i;
+	int r_a;
+	int rr_a;
 }					t_idk;
 
 int		check_args(t_idk *isdk, int ac, char **v);
