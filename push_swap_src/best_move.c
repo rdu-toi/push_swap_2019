@@ -6,6 +6,32 @@ void    push_all_b(t_idk *isdk)
         pb(isdk);
 }
 
+void    final_sort_b(t_idk *isdk)
+{
+    while (isdk->tempb != NULL)
+    {
+        if (isdk->tempb->stk == isdk->b_highest)
+            break;
+        isdk->i++;
+        isdk->tempb = isdk->tempb->next;
+    }
+    if (isdk->i + isdk->i > isdk->bctr)
+    {
+        isdk->i = isdk->bctr - isdk->i;
+        while (isdk->i > 0)
+        {
+            rrb(isdk);
+            isdk->i--;
+        }
+        return ;
+    }
+    while (isdk->i > 0)
+    {
+        rb(isdk);
+        isdk->i--;
+    }
+}
+
 void    cycle_stacka(t_idk *isdk)
 {
 while (isdk->actr) {
@@ -120,30 +146,7 @@ while (isdk->actr) {
     }
     isdk->tempb = isdk->bhead;
     isdk->i = 0;
-    while (isdk->tempb != NULL)
-    {
-        if (isdk->tempb->stk == isdk->b_highest)
-            break;
-        isdk->i++;
-        isdk->tempb = isdk->tempb->next;
-    }
-    if (isdk->i + isdk->i > isdk->bctr)
-    {
-        isdk->i = isdk->bctr - isdk->i;
-        while (isdk->i > 0)
-        {
-            rrb(isdk);
-            isdk->i--;
-        }
-    }
-    else
-    {
-        while (isdk->i > 0)
-        {
-            rb(isdk);
-            isdk->i--;
-        }
-    }
+    final_sort_b(isdk);
 }
 
 void    best_move(t_idk *isdk)
