@@ -10,10 +10,10 @@ void    cycle_stacka(t_idk *isdk)
 {
 while (isdk->actr) {
         isdk->current_num_pos = 1;
-        isdk->gr_a = 0;       // greatest ra
-        isdk->grr_a = 0;      // greatest rra
-        isdk->gr_b = 0;      // next greatest rb
-        isdk->grr_b = isdk->bctr;     // next greatest rrb
+        isdk->gr_a = 0;
+        isdk->grr_a = 0;
+        isdk->gr_b = 0;
+        isdk->grr_b = isdk->bctr;
         isdk->best_num_of_moves = 2147483647;
         while (isdk->current_num_pos <= isdk->actr) {
             isdk->num_of_moves_ra_rb = 0;
@@ -26,15 +26,15 @@ while (isdk->actr) {
             isdk->i = 1;
             while (isdk->i < isdk->current_num_pos) {
                 isdk->tempa = isdk->tempa->next;
-                i++;
+                isdk->i++;
             }
             isdk->tempb = isdk->bhead;
             while (isdk->tempb != NULL)
             {
                 if (isdk->tempa->stk > isdk->b_highest && isdk->b_highest == isdk->tempb->stk)
                     break;
-                r_b++;
-                rr_b--;
+                isdk->r_b++;
+                isdk->rr_b--;
                 if ((isdk->tempa->stk < isdk->tempb->stk && isdk->tempb->next && isdk->tempa->stk > isdk->tempb->next->stk) ||
                     (isdk->tempa->stk < isdk->b_lowest && isdk->b_lowest == isdk->tempb->stk))
                     break;
@@ -57,60 +57,60 @@ while (isdk->actr) {
             if (isdk->num_of_moves_rra_rb < isdk->best_num_of_moves)
             {
                 isdk->best_num_of_moves = isdk->num_of_moves_rra_rb;
-                gr_a = 0;
-                grr_a = rr_a;
-                gr_b = r_b;
-                grr_b = 0;
+                isdk->gr_a = 0;
+                isdk->grr_a = isdk->rr_a;
+                isdk->gr_b = isdk->r_b;
+                isdk->grr_b = 0;
             }
-            if (num_of_moves_ra_rrb < best_num_of_moves)
+            if (isdk->num_of_moves_ra_rrb < isdk->best_num_of_moves)
             {
-                best_num_of_moves = num_of_moves_ra_rrb;
-                gr_a = r_a;
-                grr_a = 0;
-                gr_b = 0;
-                grr_b = rr_b;
+                isdk->best_num_of_moves = isdk->num_of_moves_ra_rrb;
+                isdk->gr_a = isdk->r_a;
+                isdk->grr_a = 0;
+                isdk->gr_b = 0;
+                isdk->grr_b = isdk->rr_b;
             }
-            if (num_of_moves_rra_rrb < best_num_of_moves)
+            if (isdk->num_of_moves_rra_rrb < isdk->best_num_of_moves)
             {
-                best_num_of_moves = num_of_moves_rra_rrb;
-                gr_a = 0;
-                grr_a = rr_a;
-                gr_b = 0;
-                grr_b = rr_b;
+                isdk->best_num_of_moves = isdk->num_of_moves_rra_rrb;
+                isdk->gr_a = 0;
+                isdk->grr_a = isdk->rr_a;
+                isdk->gr_b = 0;
+                isdk->grr_b = isdk->rr_b;
             }
-            current_num_pos++;
+            isdk->current_num_pos++;
         }
-        while (gr_b)
+        while (isdk->gr_b)
         {
-            if (gr_a)
+            if (isdk->gr_a)
             {
                 rr(isdk);
-                gr_a--;
+                isdk->gr_a--;
             }
             else
                 rb(isdk);
-            gr_b--;
+            isdk->gr_b--;
         }
-        while (grr_b)
+        while (isdk->grr_b)
         {
-            if (grr_a)
+            if (isdk->grr_a)
             {
                 rrr(isdk);
-                grr_a--;
+                isdk->grr_a--;
             }
             else
                 rrb(isdk);
-            grr_b--;
+            isdk->grr_b--;
         }
-        while (gr_a)
+        while (isdk->gr_a)
         {
             ra(isdk);
-            gr_a--;
+            isdk->gr_a--;
         }
-        while (grr_a)
+        while (isdk->grr_a)
         {
             rra(isdk);
-            grr_a--;
+            isdk->grr_a--;
         }
         pa(isdk);
         if (isdk->bhead->stk > isdk->b_highest)
@@ -119,29 +119,29 @@ while (isdk->actr) {
             isdk->b_lowest = isdk->bhead->stk;
     }
     isdk->tempb = isdk->bhead;
-    int i = 0;
+    isdk->i = 0;
     while (isdk->tempb != NULL)
     {
         if (isdk->tempb->stk == isdk->b_highest)
             break;
-        i++;
+        isdk->i++;
         isdk->tempb = isdk->tempb->next;
     }
-    if (i + i > isdk->bctr)
+    if (isdk->i + isdk->i > isdk->bctr)
     {
-        i = isdk->bctr - i;
-        while (i > 0)
+        isdk->i = isdk->bctr - isdk->i;
+        while (isdk->i > 0)
         {
             rrb(isdk);
-            i--;
+            isdk->i--;
         }
     }
     else
     {
-        while (i > 0)
+        while (isdk->i > 0)
         {
             rb(isdk);
-            i--;
+            isdk->i--;
         }
     }
 }
