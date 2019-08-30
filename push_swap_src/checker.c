@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdu-toi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rdu-toi <rdu-toi@student.wethinkcode.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 13:36:26 by rdu-toi           #+#    #+#             */
-/*   Updated: 2018/09/04 13:36:27 by rdu-toi          ###   ########.fr       */
+/*   Updated: 2019/08/30 15:12:41 by rdu-toi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,13 @@ int		main(int ac, char **av)
 	{
 		create_stacks(&isdk, ac, av);
 		check_dbls(&isdk);
-		// while(!isdk.error)
-		// {
-		// 	best_move(&isdk);
-		// 	// print_ops(&isdk);
-		// 	if (!isdk.actr)
-		// 		push_all_b(&isdk);
-		// 	if (!isdk.bctr)
-		// 	{
-		// 		if (!check_odr(&isdk))
-		// 			isdk.error = 1;
-		// 		break;
-		// 	}
-		// }
 	}
-	best_move(&isdk);
-	push_all_b(&isdk);
+	if (isdk.error)
+		write(1, "error\n", 6);
+	else
+	{
+		best_move(&isdk);
+		push_all_b(&isdk);
+	}
 	free_error(&isdk);
 }

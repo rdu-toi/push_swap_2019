@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   best_move.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdu-toi <rdu-toi@student.wethinkcode.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/29 22:39:28 by rdu-toi           #+#    #+#             */
+/*   Updated: 2019/08/30 11:01:49 by rdu-toi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
 void    push_all_b(t_idk *isdk)
@@ -32,107 +44,127 @@ void    final_sort_b(t_idk *isdk)
     }
 }
 
+void norm_made_me_do_this(t_idk *s)
+{
+    while (s->i < s->current_num_pos) {
+        s->tempa = s->tempa->next;
+        s->i++;
+    }
+    s->tempb = s->bhead;
+    while (s->tempb != NULL)
+    {
+        if (s->tempa->stk > s->b_highest && s->b_highest == s->tempb->stk)
+            break;
+        s->r_b++;
+        s->rr_b--;
+        if ((s->tempa->stk < s->tempb->stk && s->tempb->next && s->tempa->stk > s->tempb->next->stk)
+            || (s->tempa->stk < s->b_lowest && s->b_lowest == s->tempb->stk))
+            break;
+        s->tempb = s->tempb->next;
+    }
+    s->r_a = s->current_num_pos - 1;
+    s->rr_a = s->actr - s->current_num_pos + 1;
+    s->num_of_moves_ra_rb = s->r_a + s->r_b - ((s->r_a >= s->r_b) ? s->r_b : s->r_a);
+    s->num_of_moves_rra_rb = s->rr_a + s->r_b;
+    s->num_of_moves_ra_rrb = s->r_a + s->rr_b;
+    s->num_of_moves_rra_rrb = s->rr_a + s->rr_b - ((s->rr_a >= s->rr_b) ? s->rr_b : s->rr_a);
+}
+
+void    norm_made_me_do_this_4(t_idk *s)
+{
+    if (s->num_of_moves_rra_rb < s->best_num_of_moves)
+    {
+        s->best_num_of_moves = s->num_of_moves_rra_rb;
+        s->gr_a = 0;
+        s->grr_a = s->rr_a;
+        s->gr_b = s->r_b;
+        s->grr_b = 0;
+    }
+    if (s->num_of_moves_ra_rrb < s->best_num_of_moves)
+    {
+        s->best_num_of_moves = s->num_of_moves_ra_rrb;
+        s->gr_a = s->r_a;
+        s->grr_a = 0;
+        s->gr_b = 0;
+        s->grr_b = s->rr_b;
+    }
+    if (s->num_of_moves_rra_rrb < s->best_num_of_moves)
+    {
+        s->best_num_of_moves = s->num_of_moves_rra_rrb;
+        s->gr_a = 0;
+        s->grr_a = s->rr_a;
+        s->gr_b = 0;
+        s->grr_b = s->rr_b;
+    }
+    s->current_num_pos++;
+}
+
+void    norm_made_me_do_this_2(t_idk *s)
+{
+    while (s->current_num_pos <= s->actr) {
+        s->num_of_moves_ra_rb = 0;
+        s->num_of_moves_rra_rb = 0;
+        s->num_of_moves_ra_rrb = 0;
+        s->num_of_moves_rra_rrb = 0;
+        s->r_b = 0;
+        s->rr_b = s->bctr;
+        s->tempa = s->ahead;
+        s->i = 1;
+        norm_made_me_do_this(s);
+        if (s->num_of_moves_ra_rb < s->best_num_of_moves)
+        {
+            s->best_num_of_moves = s->num_of_moves_ra_rb;
+            s->gr_a = s->r_a;
+            s->grr_a = 0;
+            s->gr_b = s->r_b;
+            s->grr_b = 0;
+        }
+        norm_made_me_do_this_4(s);
+    }
+}
+
+void    norm_made_me_do_this_3(t_idk *s)
+{
+    while (s->gr_b)
+    {
+        if (s->gr_a)
+        {
+            rr(s);
+            s->gr_a--;
+        }
+        else
+            rb(s);
+        s->gr_b--;
+    }
+    while (s->grr_b)
+    {
+        if (s->grr_a)
+        {
+            rrr(s);
+            s->grr_a--;
+        }
+        else
+            rrb(s);
+        s->grr_b--;
+    }
+    while (s->gr_a)
+    {
+        ra(s);
+        s->gr_a--;
+    }
+}
+
 void    cycle_stacka(t_idk *isdk)
 {
-while (isdk->actr) {
+    while (isdk->actr) {
         isdk->current_num_pos = 1;
         isdk->gr_a = 0;
         isdk->grr_a = 0;
         isdk->gr_b = 0;
         isdk->grr_b = isdk->bctr;
         isdk->best_num_of_moves = 2147483647;
-        while (isdk->current_num_pos <= isdk->actr) {
-            isdk->num_of_moves_ra_rb = 0;
-            isdk->num_of_moves_rra_rb = 0;
-            isdk->num_of_moves_ra_rrb = 0;
-            isdk->num_of_moves_rra_rrb = 0;
-            isdk->r_b = 0;
-            isdk->rr_b = isdk->bctr;
-            isdk->tempa = isdk->ahead;
-            isdk->i = 1;
-            while (isdk->i < isdk->current_num_pos) {
-                isdk->tempa = isdk->tempa->next;
-                isdk->i++;
-            }
-            isdk->tempb = isdk->bhead;
-            while (isdk->tempb != NULL)
-            {
-                if (isdk->tempa->stk > isdk->b_highest && isdk->b_highest == isdk->tempb->stk)
-                    break;
-                isdk->r_b++;
-                isdk->rr_b--;
-                if ((isdk->tempa->stk < isdk->tempb->stk && isdk->tempb->next && isdk->tempa->stk > isdk->tempb->next->stk) ||
-                    (isdk->tempa->stk < isdk->b_lowest && isdk->b_lowest == isdk->tempb->stk))
-                    break;
-                isdk->tempb = isdk->tempb->next;
-            }
-            isdk->r_a = isdk->current_num_pos - 1;
-            isdk->rr_a = isdk->actr - isdk->current_num_pos + 1;
-            isdk->num_of_moves_ra_rb = isdk->r_a + isdk->r_b - ((isdk->r_a >= isdk->r_b) ? isdk->r_b : isdk->r_a);
-            isdk->num_of_moves_rra_rb = isdk->rr_a + isdk->r_b;
-            isdk->num_of_moves_ra_rrb = isdk->r_a + isdk->rr_b;
-            isdk->num_of_moves_rra_rrb = isdk->rr_a + isdk->rr_b - ((isdk->rr_a >= isdk->rr_b) ? isdk->rr_b : isdk->rr_a);
-            if (isdk->num_of_moves_ra_rb < isdk->best_num_of_moves)
-            {
-                isdk->best_num_of_moves = isdk->num_of_moves_ra_rb;
-                isdk->gr_a = isdk->r_a;
-                isdk->grr_a = 0;
-                isdk->gr_b = isdk->r_b;
-                isdk->grr_b = 0;
-            }
-            if (isdk->num_of_moves_rra_rb < isdk->best_num_of_moves)
-            {
-                isdk->best_num_of_moves = isdk->num_of_moves_rra_rb;
-                isdk->gr_a = 0;
-                isdk->grr_a = isdk->rr_a;
-                isdk->gr_b = isdk->r_b;
-                isdk->grr_b = 0;
-            }
-            if (isdk->num_of_moves_ra_rrb < isdk->best_num_of_moves)
-            {
-                isdk->best_num_of_moves = isdk->num_of_moves_ra_rrb;
-                isdk->gr_a = isdk->r_a;
-                isdk->grr_a = 0;
-                isdk->gr_b = 0;
-                isdk->grr_b = isdk->rr_b;
-            }
-            if (isdk->num_of_moves_rra_rrb < isdk->best_num_of_moves)
-            {
-                isdk->best_num_of_moves = isdk->num_of_moves_rra_rrb;
-                isdk->gr_a = 0;
-                isdk->grr_a = isdk->rr_a;
-                isdk->gr_b = 0;
-                isdk->grr_b = isdk->rr_b;
-            }
-            isdk->current_num_pos++;
-        }
-        while (isdk->gr_b)
-        {
-            if (isdk->gr_a)
-            {
-                rr(isdk);
-                isdk->gr_a--;
-            }
-            else
-                rb(isdk);
-            isdk->gr_b--;
-        }
-        while (isdk->grr_b)
-        {
-            if (isdk->grr_a)
-            {
-                rrr(isdk);
-                isdk->grr_a--;
-            }
-            else
-                rrb(isdk);
-            isdk->grr_b--;
-        }
-        while (isdk->gr_a)
-        {
-            ra(isdk);
-            isdk->gr_a--;
-        }
+        norm_made_me_do_this_2(isdk);
+        norm_made_me_do_this_3(isdk);
         while (isdk->grr_a)
         {
             rra(isdk);

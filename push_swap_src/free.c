@@ -53,6 +53,4 @@ void	free_error(t_idk *isdk)
     ahead(isdk);
     bhead(isdk);
     split(isdk);
-	if (isdk->error)
-		write(1, "end\n", 4);
 }
