@@ -74,5 +74,6 @@ void				push_all_b(t_main *main);
 void				norm_made_me_do_this_3(t_main *s);
 void				sort_five_below(t_main *m);
 int					check_order(t_main *main);
+int					check_multiples(t_main *main);
 
 #endif

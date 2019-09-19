@@ -20,3 +20,31 @@ void	rrr(t_main *isdk)
 	write(1, "rrr\n", 4);
 	isdk->rrr = 0;
 }
+
+// void	set_variables(t_main * m)
+// {
+
+// }
+
+int		check_multiples(t_main *main)
+{
+	main->ta = main->ahead;
+
+	while (main->ta)
+	{
+		main->tb = main->ta->next;
+		while (main->tb)
+		{
+			if (main->ta->n == main->tb->n)
+				return (0);
+			main->tb = main->tb->next;
+		}
+		main->ta = main->ta->next;
+	}
+	return (1);
+}
+
+// void	free_everything(t_main *m)
+// {
+
+// }

@@ -69,5 +69,7 @@ void				rra(t_main *main);
 void				rrb(t_main *main);
 void				rrr(t_main *main);
 void				list_check(t_main *main);
+void				set_variables(t_main *main);
+int					check_multiples(t_main *main);
 
 #endif

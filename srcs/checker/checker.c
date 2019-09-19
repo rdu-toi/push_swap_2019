@@ -29,13 +29,10 @@ void	check_order(t_main *main)
 		write(1, "OK\n", 3);
 }
 
-t_stack	*create_node(t_main *main, int value)
+t_stack	*create_node(int value)
 {
 	t_stack *tmp;
 
-	main->ss = 0;
-	main->rr = 0;
-	main->rrr = 0;
 	if (!(tmp = (t_stack *)ft_memalloc(sizeof(t_stack))))
 		return (NULL);
 	tmp->num = value;
@@ -65,8 +62,6 @@ int		check_flags(t_main *main, char *arg)
 
 int		create_stacks(t_main *m, int count, char **args)
 {
-	m->actr = 0;
-	m->bctr = 0;
 	while (count > 1)
 	{
 		if (!check_flags(m, args[count - 1]))
@@ -81,11 +76,15 @@ int		create_stacks(t_main *m, int count, char **args)
 				if (ft_strcmp(m->split[m->i], ft_itoa(ft_atoi(m->split[m->i]))))
 					return (0);
 				m->temp = m->ahead;
-				m->ahead = create_node(m, ft_atoi(m->split[m->i]));
+				m->ahead = create_node(ft_atoi(m->split[m->i]));
 				m->ahead->next = m->temp;
 				m->actr++;
 				m->i--;
 			}
+			while (m->split[m->i])
+				m->i++;
+			while (m->i >= 0)
+				free(m->split[m->i--]);
 		}
 		count--;
 	}
@@ -96,15 +95,14 @@ int		main(int ac, char **av)
 {
 	t_main main;
 
-	main.error = 0;
-	main.list_print = 0;
-	main.ops_print = 0;
-	main.col_print = 0;
+	set_variables(&main);
 	if (ac == 1)
 		return (0);
 	else if (create_stacks(&main, ac, av))
 	{
-		if (main.list_print)
+		if (!check_multiples(&main))
+			main.error = 1;
+		if (main.list_print && !main.error)
 			list_check(&main);
 		while (!main.error)
 		{
@@ -113,7 +111,6 @@ int		main(int ac, char **av)
 			ops(&main);
 		}
 	}
-	free(main.line);
 	if (main.error)
 		write(1, "Error\n", 6);
 	else

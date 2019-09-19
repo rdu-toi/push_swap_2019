@@ -79,14 +79,19 @@ int		main(int ac, char **av)
 		return (0);
 	else if (create_stacks(&main, ac, av))
 	{
-		if (!check_order(&main))
+		if (!check_multiples(&main))
+			write(1, "Error\n", 6);
+		else
 		{
-			if (main.actr <= 5)
-				sort_five_below(&main);
-			else
+			if (!check_order(&main))
 			{
-				best_move(&main);
-				push_all_b(&main);
+				if (main.actr <= 5)
+					sort_five_below(&main);
+				else
+				{
+					best_move(&main);
+					push_all_b(&main);
+				}
 			}
 		}
 	}
