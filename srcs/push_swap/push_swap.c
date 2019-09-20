@@ -24,7 +24,7 @@ int		check_order(t_main *main)
 			return (0);
 		temp = temp->next;
 	}
-	free(temp);
+	temp = NULL;
 	return (1);
 }
 
@@ -39,28 +39,29 @@ t_stack	*create_node(int value)
 	return (tmp);
 }
 
-int		create_stacks(t_main *main, int count, char **args)
+int		create_stacks(t_main *m, int count, char **args)
 {
-	int		i;
-	t_stack	*list;
-
 	while (count > 1)
 	{
-		i = 0;
-		main->split = ft_strsplit(args[count - 1], ' ');
-		while (main->split[i])
-			i++;
-		i--;
-		while (i >= 0)
+		m->i = 0;
+		m->split = ft_strsplit(args[count - 1], ' ');
+		while (m->split[m->i])
+			m->i++;
+		m->i--;
+		while (m->i >= 0)
 		{
-			if (ft_strcmp(main->split[i], ft_itoa(ft_atoi(main->split[i]))))
+			if (ft_strcmp(m->split[m->i], ft_itoa(ft_atoi(m->split[m->i]))))
 				return (0);
-			list = main->ahead;
-			main->ahead = create_node(ft_atoi(main->split[i]));
-			main->ahead->next = list;
-			main->actr++;
-			i--;
+			m->ta = m->ahead;
+			m->ahead = create_node(ft_atoi(m->split[m->i]));
+			m->ahead->next = m->ta;
+			m->actr++;
+			m->i--;
 		}
+		while (m->split[m->i])
+			m->i++;
+		while (m->i >= 0)
+			free(m->split[m->i--]);
 		count--;
 	}
 	return (1);
