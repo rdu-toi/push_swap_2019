@@ -44,7 +44,6 @@ void	set_variables(t_main *main)
 	main->rr = 0;
 	main->rrr = 0;
 	main->line = NULL;
-	main->duplicate_table = NULL;
 	main->split = NULL;
 	main->temp = NULL;
 	main->tempa = NULL;
@@ -70,19 +69,19 @@ int		check_multiples(t_main *main)
 		}
 		main->tempa = main->tempa->next;
 	}
+	main->tempa = NULL;
+	main->temp = NULL;
 	return (1);
 }
 
 void	free_everything(t_main *m)
 {
-	m->line = NULL;
-	m->duplicate_table = NULL;
-	m->split = NULL;
-	m->temp = NULL;
-	m->tempa = NULL;
-	m->tempb = NULL;
-	m->ahead = NULL;
-	m->bhead = NULL;
-	m->temp_tail = NULL;
-	m->temp_tail = NULL;
+	while (m->ahead)
+	{
+		m->temp = m->ahead;
+		m->ahead = m->ahead->next;
+		free(m->temp);
+		m->temp = NULL;
+	}
+	set_variables(m);
 }

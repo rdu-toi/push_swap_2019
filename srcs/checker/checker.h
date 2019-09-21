@@ -38,7 +38,6 @@ typedef struct		s_main
 	int				bctr;
 	int				error;
 	char			*line;
-	int				*duplicate_table;
 	int				col_print;
 	int				list_print;
 	int				ops_print;
@@ -71,5 +70,6 @@ void				rrr(t_main *main);
 void				list_check(t_main *main);
 void				set_variables(t_main *main);
 int					check_multiples(t_main *main);
+void				free_everything(t_main *m);
 
 #endif

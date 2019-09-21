@@ -59,6 +59,8 @@ void	pa(t_main *main)
 		if (main->list_print)
 			list_check(main);
 	}
+	main->temp_head = NULL;
+	main->temp_tail = NULL;
 }
 
 void	pb(t_main *main)
@@ -76,6 +78,8 @@ void	pb(t_main *main)
 		if (main->list_print)
 			list_check(main);
 	}
+	main->temp_head = NULL;
+	main->temp_tail = NULL;
 }
 
 void	ops(t_main *main)

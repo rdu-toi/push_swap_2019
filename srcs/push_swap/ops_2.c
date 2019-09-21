@@ -29,6 +29,8 @@ void	ra(t_main *isdk)
 		if (!isdk->rr)
 			write(1, "ra\n", 3);
 	}
+	temp_head = NULL;
+	temp_tail = NULL;
 }
 
 void	rb(t_main *isdk)
@@ -48,6 +50,8 @@ void	rb(t_main *isdk)
 		if (!isdk->rr)
 			write(1, "rb\n", 3);
 	}
+	temp_head = NULL;
+	temp_tail = NULL;
 }
 
 void	rr(t_main *isdk)
@@ -77,6 +81,8 @@ void	rra(t_main *isdk)
 		if (!isdk->rrr)
 			write(1, "rra\n", 4);
 	}
+	temp_head = NULL;
+	temp_tail = NULL;
 }
 
 void	rrb(t_main *isdk)
@@ -97,4 +103,6 @@ void	rrb(t_main *isdk)
 		if (!isdk->rrr)
 			write(1, "rrb\n", 4);
 	}
+	temp_head = NULL;
+	temp_tail = NULL;
 }

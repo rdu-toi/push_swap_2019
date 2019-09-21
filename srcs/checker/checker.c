@@ -80,11 +80,11 @@ int		create_stacks(t_main *m, int count, char **args)
 				m->ahead->next = m->temp;
 				m->actr++;
 				m->i--;
+				m->temp = NULL;
 			}
 			while (m->split[m->i])
-				m->i++;
-			while (m->i >= 0)
-				free(m->split[m->i--]);
+				free(m->split[m->i++]);
+			free(m->split);
 		}
 		count--;
 	}
@@ -115,5 +115,6 @@ int		main(int ac, char **av)
 		write(1, "Error\n", 6);
 	else
 		check_order(&main);
-	// free_everything();
+	free_everything(&main);
+	while (1);
 }

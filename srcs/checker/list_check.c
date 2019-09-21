@@ -110,4 +110,6 @@ void	list_check(t_main *main)
 			main->tempa = main->tempa->next;
 		printf("\n");
 	}
+	main->tempa = NULL;
+	main->tempb = NULL;
 }
