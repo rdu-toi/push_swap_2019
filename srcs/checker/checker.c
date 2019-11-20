@@ -116,5 +116,4 @@ int		main(int ac, char **av)
 	else
 		check_order(&main);
 	free_everything(&main);
-	while (1);
 }
