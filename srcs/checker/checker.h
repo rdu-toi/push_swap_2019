@@ -70,6 +70,7 @@ void				rrr(t_main *main);
 void				list_check(t_main *main);
 void				set_variables(t_main *main);
 int					check_multiples(t_main *main);
-void				free_everything(t_main *m);
+int					create_stacks_2(t_main *m);
+t_stack				*create_node(int value);
 
 #endif

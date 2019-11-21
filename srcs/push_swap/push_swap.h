@@ -33,6 +33,7 @@ typedef struct		s_main
 	int				rr;
 	int				rrr;
 	char			**split;
+	char			*line;
 	t_stack			*ta;
 	t_stack			*tb;
 	t_stack			*ahead;
@@ -75,5 +76,7 @@ void				norm_made_me_do_this_3(t_main *s);
 void				sort_five_below(t_main *m);
 int					check_order(t_main *main);
 int					check_multiples(t_main *main);
+int					create_stack_2(t_main *m);
+t_stack				*create_node(int value);
 
 #endif

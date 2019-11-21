@@ -21,11 +21,6 @@ void	rrr(t_main *isdk)
 	isdk->rrr = 0;
 }
 
-// void	set_variables(t_main * m)
-// {
-
-// }
-
 int		check_multiples(t_main *main)
 {
 	main->ta = main->ahead;
@@ -44,7 +39,18 @@ int		check_multiples(t_main *main)
 	return (1);
 }
 
-// void	free_everything(t_main *m)
-// {
-
-// }
+int		create_stack_2(t_main *m) {
+	while (m->i >= 0)
+	{
+		m->line = ft_itoa(ft_atoi(m->split[m->i]));
+		if (ft_strcmp(m->split[m->i], m->line))
+			return (0);
+		free(m->line);
+		m->ta = m->ahead;
+		m->ahead = create_node(ft_atoi(m->split[m->i]));
+		m->ahead->next = m->ta;
+		m->actr++;
+		m->i--;
+	}
+	return (1);
+}

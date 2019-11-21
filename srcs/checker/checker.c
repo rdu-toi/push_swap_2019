@@ -16,6 +16,11 @@
 void	check_order(t_main *main)
 {
 	main->temp = main->ahead;
+	if (main->bctr)
+	{
+		write(1, "KO\n", 3);
+		return ;
+	}
 	while (main->temp && main->temp->next)
 	{
 		if (main->temp->num > main->temp->next->num)
@@ -25,8 +30,7 @@ void	check_order(t_main *main)
 		}
 		main->temp = main->temp->next;
 	}
-	if (!main->bctr)
-		write(1, "OK\n", 3);
+	write(1, "OK\n", 3);
 }
 
 t_stack	*create_node(int value)
@@ -37,6 +41,7 @@ t_stack	*create_node(int value)
 		return (NULL);
 	tmp->num = value;
 	tmp->next = NULL;
+	// printf("Location of node: %p\n", &tmp);fflush(stdout);
 	return (tmp);
 }
 
@@ -71,19 +76,14 @@ int		create_stacks(t_main *m, int count, char **args)
 			while (m->split[m->i])
 				m->i++;
 			m->i--;
-			while (m->i >= 0)
-			{
-				if (ft_strcmp(m->split[m->i], ft_itoa(ft_atoi(m->split[m->i]))))
-					return (0);
-				m->temp = m->ahead;
-				m->ahead = create_node(ft_atoi(m->split[m->i]));
-				m->ahead->next = m->temp;
-				m->actr++;
-				m->i--;
-				m->temp = NULL;
-			}
+			if (!create_stacks_2(m))
+				return (0);
+			m->i++;
 			while (m->split[m->i])
-				free(m->split[m->i++]);
+				m->i++;
+			m->i--;
+			while (m->i >= 0)
+				free(m->split[m->i--]);
 			free(m->split);
 		}
 		count--;
@@ -106,14 +106,16 @@ int		main(int ac, char **av)
 			list_check(&main);
 		while (!main.error)
 		{
-			if (get_next_line(0, &main.line) == 0)
+			if (get_next_line(0, &main.line) == 0) {
 				break ;
+			}
 			ops(&main);
+			free(main.line);
 		}
 	}
 	if (main.error)
 		write(1, "Error\n", 6);
 	else
 		check_order(&main);
-	free_everything(&main);
+	free(main.line);
 }

@@ -51,7 +51,6 @@ void	set_variables(t_main *main)
 	main->ahead = NULL;
 	main->bhead = NULL;
 	main->temp_tail = NULL;
-	main->temp_tail = NULL;
 }
 
 int		check_multiples(t_main *main)
@@ -74,14 +73,18 @@ int		check_multiples(t_main *main)
 	return (1);
 }
 
-void	free_everything(t_main *m)
-{
-	while (m->ahead)
+int		create_stacks_2(t_main *m) {
+	while (m->i >= 0)
 	{
+		m->line = ft_itoa(ft_atoi(m->split[m->i]));
+		if (ft_strcmp(m->split[m->i], m->line))
+			return (0);
+		free(m->line);
 		m->temp = m->ahead;
-		m->ahead = m->ahead->next;
-		free(m->temp);
-		m->temp = NULL;
+		m->ahead = create_node(ft_atoi(m->split[m->i]));
+		m->ahead->next = m->temp;
+		m->actr++;
+		m->i--;
 	}
-	set_variables(m);
+	return (1);
 }
