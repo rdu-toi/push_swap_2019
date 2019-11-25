@@ -90,9 +90,9 @@ void	ops(t_main *main)
 		sb(main);
 	else if (!ft_strcmp("ss", main->line))
 		ss(main);
-	else if (!ft_strcmp("pa", main->line))
-		pa(main);
 	else if (!ft_strcmp("pb", main->line))
+		pa(main);
+	else if (!ft_strcmp("pa", main->line))
 		pb(main);
 	else if (!ft_strcmp("ra", main->line))
 		ra(main);

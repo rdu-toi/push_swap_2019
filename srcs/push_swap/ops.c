@@ -61,7 +61,7 @@ void	pa(t_main *isdk)
 		isdk->bhead = temp;
 		isdk->actr--;
 		isdk->bctr++;
-		write(1, "pa\n", 3);
+		write(1, "pb\n", 3);
 	}
 }
 
@@ -77,6 +77,6 @@ void	pb(t_main *isdk)
 		isdk->ahead = temp;
 		isdk->actr++;
 		isdk->bctr--;
-		write(1, "pb\n", 3);
+		write(1, "pa\n", 3);
 	}
 }

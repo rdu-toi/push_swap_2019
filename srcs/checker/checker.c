@@ -15,6 +15,7 @@
 
 void	check_order(t_main *main)
 {
+	free(main->line);
 	main->temp = main->ahead;
 	if (main->bctr)
 	{
@@ -113,9 +114,10 @@ int		main(int ac, char **av)
 			free(main.line);
 		}
 	}
+	else
+		main.error = 1;
 	if (main.error)
 		write(1, "Error\n", 6);
 	else
 		check_order(&main);
-	free(main.line);
 }
