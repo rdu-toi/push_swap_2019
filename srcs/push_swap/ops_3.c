@@ -36,6 +36,8 @@ int		check_multiples(t_main *main)
 		}
 		main->ta = main->ta->next;
 	}
+	main->ta = NULL;
+	main->tb = NULL;
 	return (1);
 }
 
@@ -53,4 +55,41 @@ int		create_stack_2(t_main *m) {
 		m->i--;
 	}
 	return (1);
+}
+
+void	set_variables(t_main *main)
+{
+	main->actr = 0;
+	main->bctr = 0;
+	main->ss = 0;
+	main->rr = 0;
+	main->rrr = 0;
+	main->line = NULL;
+	main->split = NULL;
+	main->ta = NULL;
+	main->tb = NULL;
+	main->ahead = NULL;
+	main->bhead = NULL;
+	main->b_highest = 0;
+	main->b_lowest = 0;
+	set_variables_2(main);
+}
+
+void	set_variables_2(t_main *main)
+{
+	main->current_num_pos = 0;
+	main->gra = 0;
+	main->grra = 0;
+	main->grb = 0;
+	main->grrb = 0;
+	main->best_num_of_moves = 0;
+	main->nom_ra_rb = 0;
+	main->nom_rra_rb = 0;
+	main->nom_ra_rrb = 0;
+	main->nom_rra_rrb = 0;
+	main->rb = 0;
+	main->rrb = 0;
+	main->i = 0;
+	main->ra = 0;
+	main->rra = 0;
 }

@@ -66,11 +66,7 @@ int		main(int ac, char **av)
 {
 	t_main main;
 
-	main.ss = 0;
-	main.rr = 0;
-	main.rrr = 0;
-	main.actr = 0;
-	main.bctr = 0;
+	set_variables(&main);
 	if (ac == 1)
 		return (0);
 	else if (create_stacks(&main, ac, av))
